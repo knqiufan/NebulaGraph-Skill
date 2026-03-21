@@ -1,4 +1,4 @@
-# NebulaGraph Skill for Claude Code
+# NebulaGraph Skill
 
 A Claude Code skill that enables intelligent interaction with NebulaGraph databases through the nebulagraph-mcp-server. It provides nGQL query generation, schema design guidance, and workflow orchestration for graph database operations.
 
@@ -31,7 +31,13 @@ nebulagraph/
 ## Prerequisites
 
 1. A running NebulaGraph cluster (v3.x)
-2. [nebulagraph-mcp-server](https://github.com/nicholasgasior/nebulagraph-mcp-server) configured in your Claude Code MCP settings
+2. [nebulagraph-mcp-server](https://github.com/nebula-contrib/nebulagraph-mcp-server) installed and configured
+
+Install the MCP server:
+
+```bash
+pip install nebulagraph-mcp-server
+```
 
 Add to your Claude Code MCP config (`~/.claude/settings.json` or project `.claude/settings.json`):
 
@@ -42,7 +48,9 @@ Add to your Claude Code MCP config (`~/.claude/settings.json` or project `.claud
       "command": "python",
       "args": ["-m", "nebulagraph_mcp_server"],
       "env": {
-        "NEBULA_ADDRESS": "127.0.0.1:9669",
+        "NEBULA_VERSION": "v3",
+        "NEBULA_HOST": "127.0.0.1",
+        "NEBULA_PORT": "9669",
         "NEBULA_USER": "root",
         "NEBULA_PASSWORD": "nebula"
       }
@@ -50,6 +58,8 @@ Add to your Claude Code MCP config (`~/.claude/settings.json` or project `.claud
   }
 }
 ```
+
+> **Note**: `NEBULA_VERSION` must be `v3`. Adjust `NEBULA_HOST` and `NEBULA_PORT` to match your cluster.
 
 ## Installation
 
