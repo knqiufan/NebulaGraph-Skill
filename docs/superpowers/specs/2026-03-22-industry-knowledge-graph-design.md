@@ -142,13 +142,20 @@ CREATE TAG INDEX idx_region_code    ON region(code(12));
 CREATE EDGE INDEX idx_supply_core   ON supply(is_core);
 CREATE EDGE INDEX idx_invest_ratio  ON invest(share_ratio);
 
--- Rebuild all
-REBUILD TAG INDEX
-  idx_industry, idx_company, idx_product, idx_person, idx_region,
-  idx_industry_name, idx_company_name, idx_person_name,
-  idx_company_status, idx_industry_level, idx_region_code;
-
-REBUILD EDGE INDEX idx_supply_core, idx_invest_ratio;
+-- Rebuild all (one per statement)
+REBUILD TAG INDEX idx_industry;
+REBUILD TAG INDEX idx_company;
+REBUILD TAG INDEX idx_product;
+REBUILD TAG INDEX idx_person;
+REBUILD TAG INDEX idx_region;
+REBUILD TAG INDEX idx_industry_name;
+REBUILD TAG INDEX idx_company_name;
+REBUILD TAG INDEX idx_person_name;
+REBUILD TAG INDEX idx_company_status;
+REBUILD TAG INDEX idx_industry_level;
+REBUILD TAG INDEX idx_region_code;
+REBUILD EDGE INDEX idx_supply_core;
+REBUILD EDGE INDEX idx_invest_ratio;
 ```
 
 ## Query Patterns by Scenario
