@@ -6,11 +6,27 @@ A Claude Code skill that enables intelligent interaction with NebulaGraph databa
 
 ```
 nebulagraph/
-  SKILL.md              # Entry point — workflow decision tree, MCP tool reference, quick patterns
-  nGQL-reference.md     # Complete nGQL syntax reference — types, DDL/DML, MATCH, GO, functions, indexes
+  SKILL.md              # Entry point — workflow, MCP tools, quick patterns, Reference Router
+  nGQL-reference.md     # Core nGQL syntax — types, DDL/DML, MATCH, GO, functions, indexes
   data-modeling.md      # Schema design guide — VID strategy, tags, edges, partitions, patterns
   examples.md           # Scenario-based examples — exploration, query composition, error diagnosis
+  topics/               # Detailed reference (read on demand)
+    operators.md        # Comparison, boolean, string, set, list operators & precedence
+    functions.md        # All built-in function signatures & examples
+    clauses.md          # YIELD, SAMPLE, INNER JOIN, WITH, UNWIND, ORDER BY, GROUP BY
+    composite-queries.md # Pipe, variables, property references ($- $^ $$)
+    show-statements.md  # All SHOW statement variants
+    fulltext-index.md   # Elasticsearch full-text search integration
+    admin.md            # JOB management, KILL QUERY/SESSION, users & roles
 ```
+
+### Three-Layer Progressive Disclosure
+
+| Layer | Content | When Loaded |
+|-------|---------|-------------|
+| **L1** | `SKILL.md` — workflow, quick syntax, common pitfalls, Reference Router | Always (on skill activation) |
+| **L2** | `nGQL-reference.md`, `data-modeling.md`, `examples.md`, `topics/*.md` | On demand (when deeper syntax needed) |
+| **L3** | Official doc URLs in Reference Router | Fallback (edge cases: geography, keywords, deployment, etc.) |
 
 ## Prerequisites
 
@@ -80,3 +96,5 @@ The skill activates when you mention:
 - Add domain-specific patterns to `examples.md`
 - Extend `nGQL-reference.md` with custom functions or UDFs
 - Add organization-specific modeling conventions to `data-modeling.md`
+- Add new topic files under `topics/` and register them in the Reference Router table in `SKILL.md`
+- Add official doc URLs to the Online-Only Reference table for topics without local files

@@ -68,8 +68,38 @@ DELETE VERTEX "p1" WITH EDGE;
 7. **`DELETE VERTEX ... WITH EDGE`** to avoid dangling edges.
 8. **No `USE` in `execute_query`** — MCP tool handles it automatically.
 
-## Resources
+## Reference Router
 
-- **`nGQL-reference.md`** — Full syntax: types, DDL/DML, MATCH, GO, paths, functions, indexes, recipes.
-- **`data-modeling.md`** — VID strategy, tag/edge design, partitions, indexes, patterns, performance.
-- **`examples.md`** — Step-by-step workflows, query composition, error diagnosis, MCP tool combination patterns. Read when the user needs guided examples or troubleshooting help.
+Read local files on demand for detailed syntax. Use official doc URLs as fallback for edge cases.
+
+### Core Reference (read when writing queries)
+
+| Topic | Local File | Official Docs |
+|-------|-----------|---------------|
+| Core syntax (types, DDL/DML, MATCH, GO, paths, indexes) | `nGQL-reference.md` | — |
+| Schema design (VID, tags, edges, partitions, patterns) | `data-modeling.md` | — |
+| Workflows, error diagnosis, MCP tool patterns | `examples.md` | — |
+
+### Detailed Reference (read only when needed)
+
+| Topic | Local File | Official Docs |
+|-------|-----------|---------------|
+| Operators (comparison, boolean, string, set, list, precedence) | `topics/operators.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/5.operators/1.comparison/ |
+| Built-in functions (math, string, datetime, aggregation, list, type, schema, predicate) | `topics/functions.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/6.functions-and-expressions/1.math/ |
+| Clauses (YIELD, SAMPLE, INNER JOIN, WITH, UNWIND, ORDER BY, GROUP BY) | `topics/clauses.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/8.clauses-and-options/yield/ |
+| Composite queries, variables, property references ($- $^ $$) | `topics/composite-queries.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/4.variable-and-composite-queries/1.composite-queries/ |
+| SHOW statements (all variants) | `topics/show-statements.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/7.general-query-statements/6.show/1.show-charset/ |
+| Full-text index (Elasticsearch integration) | `topics/fulltext-index.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/15.full-text-index-statements/1.search-with-text-based-index/ |
+| Administration (JOB, KILL QUERY/SESSION, users, roles) | `topics/admin.md` | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/4.job-statements/ |
+
+### Online-Only Reference (no local file, consult official docs directly)
+
+| Topic | Official Docs |
+|-------|---------------|
+| Graph patterns | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/1.nGQL-overview/3.graph-patterns/ |
+| Keywords & reserved words | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/1.nGQL-overview/keywords-and-reserved-words/ |
+| Geography (geo functions & types) | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/6.functions-and-expressions/14.geo/ |
+| Data type details (numeric, string, datetime, NULL) | https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/3.data-types/1.numeric/ |
+| Full-text index deployment | https://docs.nebula-graph.com.cn/3.8.0/4.deployment-and-installation/6.deploy-text-based-index/2.deploy-es/ |
+| Import/Export tools | https://docs.nebula-graph.com.cn/3.8.0/nebula-importer/use-importer/ |
+| Best practices & system design | https://docs.nebula-graph.com.cn/3.8.0/8.service-tuning/2.graph-modeling/ |
