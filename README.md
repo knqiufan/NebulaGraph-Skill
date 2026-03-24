@@ -6,27 +6,28 @@ A Claude Code skill that enables intelligent interaction with NebulaGraph databa
 
 ```
 nebulagraph/
-  SKILL.md              # Entry point — workflow, MCP tools, quick patterns, Reference Router
-  nGQL-reference.md     # Core nGQL syntax — types, DDL/DML, MATCH, GO, functions, indexes
-  data-modeling.md      # Schema design guide — VID strategy, tags, edges, partitions, patterns
-  examples.md           # Scenario-based examples — exploration, query composition, error diagnosis
-  topics/               # Detailed reference (read on demand)
-    operators.md        # Comparison, boolean, string, set, list operators & precedence
-    functions.md        # All built-in function signatures & examples
-    clauses.md          # YIELD, SAMPLE, INNER JOIN, WITH, UNWIND, ORDER BY, GROUP BY
-    composite-queries.md # Pipe, variables, property references ($- $^ $$)
-    show-statements.md  # All SHOW statement variants
-    fulltext-index.md   # Elasticsearch full-text search integration
-    admin.md            # JOB management, KILL QUERY/SESSION, users & roles
+├── SKILL.md                          # Entry point — workflow, MCP tools, pitfalls, resource index
+├── references/                       # Detailed reference (read on demand)
+│   ├── ngql-syntax.md               # Core nGQL syntax — types, DDL/DML, MATCH, GO, functions, indexes
+│   ├── data-modeling.md             # Schema design — VID strategy, tags, edges, partitions, patterns
+│   ├── operators.md                 # Comparison, boolean, string, set, list operators & precedence
+│   ├── functions.md                 # All built-in function signatures & examples
+│   ├── clauses.md                   # YIELD, SAMPLE, INNER JOIN, WITH, UNWIND, ORDER BY, GROUP BY
+│   ├── composite-queries.md         # Pipe, variables, property references ($- $^ $$)
+│   ├── show-statements.md           # All SHOW statement variants
+│   ├── fulltext-index.md            # Elasticsearch full-text search integration
+│   └── admin.md                     # JOB management, KILL QUERY/SESSION, users & roles
+└── examples/                         # Scenario-based examples
+    └── workflows.md                 # Exploration, query composition, error diagnosis, common recipes
 ```
 
 ### Three-Layer Progressive Disclosure
 
 | Layer | Content | When Loaded |
 |-------|---------|-------------|
-| **L1** | `SKILL.md` — workflow, quick syntax, common pitfalls, Reference Router | Always (on skill activation) |
-| **L2** | `nGQL-reference.md`, `data-modeling.md`, `examples.md`, `topics/*.md` | On demand (when deeper syntax needed) |
-| **L3** | Official doc URLs in Reference Router | Fallback (edge cases: geography, keywords, deployment, etc.) |
+| **L1** | `SKILL.md` — workflow, essential patterns, common pitfalls, resource index | Always (on skill activation) |
+| **L2** | `references/*.md`, `examples/*.md` | On demand (when deeper syntax or examples needed) |
+| **L3** | Official doc URLs in SKILL.md | Fallback (edge cases: geography, keywords, deployment, etc.) |
 
 ## Prerequisites
 
@@ -103,8 +104,8 @@ The skill activates when you mention:
 ## Customization
 
 - Edit `SKILL.md` frontmatter `description` to adjust trigger conditions
-- Add domain-specific patterns to `examples.md`
-- Extend `nGQL-reference.md` with custom functions or UDFs
-- Add organization-specific modeling conventions to `data-modeling.md`
-- Add new topic files under `topics/` and register them in the Reference Router table in `SKILL.md`
-- Add official doc URLs to the Online-Only Reference table for topics without local files
+- Add domain-specific patterns to `examples/workflows.md`
+- Extend `references/ngql-syntax.md` with custom functions or UDFs
+- Add organization-specific modeling conventions to `references/data-modeling.md`
+- Add new reference files under `references/` and register them in the Additional Resources section of `SKILL.md`
+- Add official doc URLs to the Online-Only Reference list for topics without local files

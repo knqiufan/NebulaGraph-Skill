@@ -1,6 +1,6 @@
 # Operators Reference
 
-> Detailed operator reference for nGQL. For quick syntax, see `nGQL-reference.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/5.operators/1.comparison/
+> Detailed operator reference for nGQL. For quick syntax, see `ngql-syntax.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/5.operators/1.comparison/
 
 ## Comparison Operators
 

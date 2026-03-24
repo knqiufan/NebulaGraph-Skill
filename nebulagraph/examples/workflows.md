@@ -1,6 +1,6 @@
 # NebulaGraph Examples & Best Practices
 
-> Companion to `SKILL.md`. For syntax reference see `nGQL-reference.md`; for schema design see `data-modeling.md`.
+> Companion to `SKILL.md`. For syntax reference see `references/ngql-syntax.md`; for schema design see `references/data-modeling.md`.
 
 ## 1. Exploration Workflow
 
@@ -153,7 +153,7 @@ execute_query(query="MATCH ...", space="social")  → targeted query
 
 **Pattern B: Schema Design → Create → Verify**
 ```
-# Read data-modeling.md for design guidance, then:
+# Read references/data-modeling.md for design guidance, then:
 execute_query(query="CREATE TAG ...", space="my_space")
 # Wait ~20s
 execute_query(query="CREATE TAG INDEX ...", space="my_space")
@@ -178,3 +178,30 @@ execute_query(query="PROFILE MATCH ...", space="social")     → performance che
 When to use tools vs raw nGQL:
 - `find_path` / `find_neighbors`: Quick exploration, no nGQL knowledge needed. Limited customization.
 - `execute_query` with MATCH/GO: Full control over filters, aggregation, output format. Use when tools don't offer enough flexibility.
+
+## 8. Common Query Recipes
+
+Quick-reference patterns for frequent tasks:
+
+```ngql
+-- Two-degree connections (friends of friends)
+MATCH (v)-[:follows*2]->(fof) WHERE id(v) == "p1" AND id(fof) != id(v) RETURN DISTINCT fof;
+
+-- Count by tag
+LOOKUP ON person YIELD id(vertex) | YIELD COUNT(*) AS total;
+
+-- Mutual connections
+MATCH (a)-[:follows]->(m)<-[:follows]-(b) WHERE id(a) == "p1" AND id(b) == "p2" RETURN m;
+
+-- Top-N by property
+MATCH (v:person) RETURN v.person.name, v.person.age ORDER BY v.person.age DESC LIMIT 10;
+
+-- Conditional labeling (CASE WHEN)
+MATCH (v:person) RETURN v.person.name, CASE WHEN v.person.age >= 30 THEN "senior" ELSE "junior" END AS cat;
+
+-- Aggregation (implicit GROUP BY)
+MATCH (v:person)-[:follows]->(v2) RETURN v.person.name, COUNT(v2) AS cnt ORDER BY cnt DESC;
+
+-- Bulk delete by condition
+LOOKUP ON person WHERE person.age < 18 YIELD id(vertex) AS vid | DELETE VERTEX $-.vid WITH EDGE;
+```

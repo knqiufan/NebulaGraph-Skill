@@ -1,6 +1,6 @@
 # nGQL Reference
 
-> Reference companion to NebulaGraph `SKILL.md`. For workflow/MCP tool guidance, see `SKILL.md`. For schema design, see `data-modeling.md`. For examples, see `examples.md`.
+> Core nGQL syntax reference. For workflow/MCP tool guidance, see `SKILL.md`. For schema design, see `data-modeling.md`. For examples, see `examples/workflows.md`. For clauses (YIELD, WITH, UNWIND, GROUP BY), see `clauses.md`. For functions, see `functions.md`.
 
 ## Data Types
 
@@ -160,6 +160,8 @@ GET SUBGRAPH 2 STEPS FROM "p1" BOTH follows, serves YIELD VERTICES AS v, EDGES A
 **Type**: `toInteger`, `toFloat`, `toBoolean`, `toString`, `toSet`, `hash`
 **Graph**: `id(vertex)`, `properties(v/e)`, `tags(vertex)`, `type(edge)`, `src(edge)`, `dst(edge)`, `rank(edge)`, `vertices(path)`, `edges(path)`, `length(path)`, `nodes(path)`, `relationships(path)`
 
+For complete function signatures, see `functions.md`.
+
 ## Index Management
 
 ```ngql
@@ -185,63 +187,3 @@ PROFILE format="dot" GO FROM "p1" OVER follows YIELD dst(edge);           -- DOT
 ```
 
 `EXPLAIN` shows the execution plan without running the query. `PROFILE` runs the query and returns plan + row counts + execution time per operator. Use `PROFILE` to identify slow operators and optimize.
-
-## UNWIND
-
-Expands a list into individual rows. Useful for list processing and batch operations.
-
-```ngql
-UNWIND [1, 2, 3] AS x RETURN x;
-MATCH (v:person) WHERE id(v) == "p1" WITH COLLECT(v) AS people UNWIND people AS p RETURN p;
--- Batch lookup from a list of VIDs
-UNWIND ["p1", "p2", "p3"] AS vid MATCH (v) WHERE id(v) == vid RETURN v;
-```
-
-## Conditional Expressions (CASE WHEN)
-
-```ngql
--- Simple form
-RETURN CASE v.person.age WHEN 30 THEN "thirty" WHEN 40 THEN "forty" ELSE "other" END AS label;
--- Searched form (general conditions)
-RETURN CASE WHEN v.person.age >= 60 THEN "senior" WHEN v.person.age >= 18 THEN "adult" ELSE "minor" END AS cat;
--- In YIELD / WITH
-MATCH (v:person) RETURN v.person.name, CASE WHEN v.person.age > 30 THEN "senior" ELSE "junior" END AS category;
-```
-
-## GROUP BY
-
-Implicit in nGQL — non-aggregated columns in `RETURN`/`YIELD` act as grouping keys (like SQL `GROUP BY`). No explicit `GROUP BY` keyword needed.
-
-```ngql
--- Group by name, count connections
-MATCH (v:person)-[:follows]->(v2) RETURN v.person.name, COUNT(v2) AS cnt ORDER BY cnt DESC;
--- Group by tag property, aggregate
-MATCH (v:person) RETURN v.person.age, COUNT(*) AS total, AVG(v.person.age) AS avg_age;
--- With YIELD in GO
-GO FROM "p1" OVER follows YIELD $$.person.name AS name | YIELD $-.name, COUNT(*) AS cnt;
-```
-
-## Common Query Recipes
-
-```ngql
--- Two-degree connections
-MATCH (v)-[:follows*2]->(fof) WHERE id(v) == "p1" AND id(fof) != id(v) RETURN DISTINCT fof;
-
--- Count by tag
-LOOKUP ON person YIELD id(vertex) | YIELD COUNT(*) AS total;
-
--- Mutual connections
-MATCH (a)-[:follows]->(m)<-[:follows]-(b) WHERE id(a) == "p1" AND id(b) == "p2" RETURN m;
-
--- Top-N
-MATCH (v:person) RETURN v.person.name, v.person.age ORDER BY v.person.age DESC LIMIT 10;
-
--- CASE WHEN
-RETURN CASE WHEN v.person.age >= 30 THEN "senior" ELSE "junior" END AS cat;
-
--- GROUP BY
-MATCH (v:person)-[:follows]->(v2) RETURN v.person.name, COUNT(v2) AS cnt ORDER BY cnt DESC;
-
--- Bulk delete
-LOOKUP ON person WHERE person.age < 18 YIELD id(vertex) AS vid | DELETE VERTEX $-.vid WITH EDGE;
-```
