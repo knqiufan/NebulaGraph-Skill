@@ -1,6 +1,6 @@
 # nGQL Reference
 
-> Core nGQL syntax reference. For workflow/MCP tool guidance, see `../SKILL.md`. For schema design, see `../references/data-modeling.md`. For examples, see `../examples/workflows.md`. For clauses (YIELD, WITH, UNWIND, GROUP BY), see `../references/clauses.md`. For functions, see `../references/functions.md`.
+> Core nGQL syntax reference. For workflow/MCP tool guidance, see `../SKILL.md`. For schema design, see `data-modeling.md`. For examples, see `../examples/workflows.md`. For clauses (YIELD, WITH, UNWIND, GROUP BY), see `clauses.md`. For functions, see `functions.md`.
 
 ## Data Types
 
@@ -21,7 +21,7 @@ CLEAR SPACE s;  -- delete data, keep schema
 
 ```ngql
 CREATE TAG [IF NOT EXISTS] person (name STRING NOT NULL, age INT32 DEFAULT 0, bio STRING)
-  TTL_DURATION = 0, TTL_COL = "" COMMENT = "Person tag";
+  TTL_DURATION = 0, TTL_COL = "", COMMENT = "Person tag";
 ALTER TAG person ADD (phone STRING); ALTER TAG person CHANGE (age INT64); ALTER TAG person DROP (bio);
 SHOW TAGS; DESCRIBE TAG person; DROP TAG [IF EXISTS] person;
 
@@ -66,7 +66,7 @@ MATCH (a:person)-[e:follows]->(b:person) WHERE id(a) == "p1" RETURN b, e;
 MATCH (v)-[e:follows|:serves]->(v2) WHERE id(v) == "p1" RETURN type(e), v2;  -- multi-type
 MATCH (v)-[e]-(v2) WHERE id(v) == "p1" RETURN v2;  -- undirected, any type
 
--- Variable-length (e is a LIST â€?filter with ALL())
+-- Variable-length (e is a LIST â€” filter with ALL())
 MATCH (a)-[e:follows*2]->(b) WHERE id(a) == "p1" RETURN b;  -- exactly 2 hops
 MATCH (a)-[e:follows*1..3]->(b) WHERE id(a) == "p1" AND ALL(x IN e WHERE x.weight > 0.5) RETURN b;
 
@@ -160,7 +160,7 @@ GET SUBGRAPH 2 STEPS FROM "p1" BOTH follows, serves YIELD VERTICES AS v, EDGES A
 **Type**: `toInteger`, `toFloat`, `toBoolean`, `toString`, `toSet`, `hash`
 **Graph**: `id(vertex)`, `properties(v/e)`, `tags(vertex)`, `type(edge)`, `src(edge)`, `dst(edge)`, `rank(edge)`, `vertices(path)`, `edges(path)`, `length(path)`, `nodes(path)`, `relationships(path)`
 
-For complete function signatures, see `../references/functions.md`.
+For complete function signatures, see `functions.md`.
 
 ## Index Management
 

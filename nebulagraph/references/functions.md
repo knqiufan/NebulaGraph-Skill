@@ -1,6 +1,6 @@
 # Built-in Functions Reference
 
-> Complete function signatures for nGQL. For function name overview, see `../references/ngql-syntax.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/6.functions-and-expressions/1.math/
+> Complete function signatures for nGQL. For function name overview, see `ngql-syntax.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/6.functions-and-expressions/1.math/
 
 ## Math Functions
 

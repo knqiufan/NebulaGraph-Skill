@@ -63,7 +63,8 @@ CREATE EDGE IF NOT EXISTS works_at (since DATE, role STRING);
 CREATE TAG INDEX idx_company ON company();
 CREATE TAG INDEX idx_company_name ON company(name(64));
 CREATE EDGE INDEX idx_works_at ON works_at();
-REBUILD TAG INDEX idx_company, idx_company_name;
+REBUILD TAG INDEX idx_company;
+REBUILD TAG INDEX idx_company_name;
 REBUILD EDGE INDEX idx_works_at;
 -- Check: SHOW TAG INDEX STATUS; (wait for FINISHED)
 ```
@@ -190,9 +191,6 @@ MATCH (v)-[:follows*2]->(fof) WHERE id(v) == "p1" AND id(fof) != id(v) RETURN DI
 -- Count by tag
 LOOKUP ON person YIELD id(vertex) | YIELD COUNT(*) AS total;
 
--- Mutual connections
-MATCH (a)-[:follows]->(m)<-[:follows]-(b) WHERE id(a) == "p1" AND id(b) == "p2" RETURN m;
-
 -- Top-N by property
 MATCH (v:person) RETURN v.person.name, v.person.age ORDER BY v.person.age DESC LIMIT 10;
 
@@ -201,7 +199,4 @@ MATCH (v:person) RETURN v.person.name, CASE WHEN v.person.age >= 30 THEN "senior
 
 -- Aggregation (implicit GROUP BY)
 MATCH (v:person)-[:follows]->(v2) RETURN v.person.name, COUNT(v2) AS cnt ORDER BY cnt DESC;
-
--- Bulk delete by condition
-LOOKUP ON person WHERE person.age < 18 YIELD id(vertex) AS vid | DELETE VERTEX $-.vid WITH EDGE;
 ```
