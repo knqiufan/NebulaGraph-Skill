@@ -1,6 +1,6 @@
 # NebulaGraph Examples & Best Practices
 
-> Companion to `SKILL.md`. For syntax reference see `references/ngql-syntax.md`; for schema design see `references/data-modeling.md`.
+> Companion to `../SKILL.md`. For syntax reference see `../references/ngql-syntax.md`; for schema design see `../references/data-modeling.md`.
 
 ## 1. Exploration Workflow
 
@@ -153,7 +153,7 @@ execute_query(query="MATCH ...", space="social")  → targeted query
 
 **Pattern B: Schema Design → Create → Verify**
 ```
-# Read references/data-modeling.md for design guidance, then:
+# Read ../references/data-modeling.md for design guidance, then:
 execute_query(query="CREATE TAG ...", space="my_space")
 # Wait ~20s
 execute_query(query="CREATE TAG INDEX ...", space="my_space")

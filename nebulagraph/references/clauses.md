@@ -1,6 +1,6 @@
 # Clauses Reference
 
-> Detailed clause reference for nGQL. For core syntax, see `ngql-syntax.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/8.clauses-and-options/yield/
+> Detailed clause reference for nGQL. For core syntax, see `../references/ngql-syntax.md`. Official docs: https://docs.nebula-graph.com.cn/3.8.0/3.ngql-guide/8.clauses-and-options/yield/
 
 ## YIELD vs RETURN
 
@@ -57,7 +57,7 @@ Used in MATCH, LOOKUP, GO (with YIELD), and pipe queries.
 
 Key operators: `==`, `!=`/`<>`, `>`, `>=`, `<`, `<=`, `IN`, `NOT IN`, `STARTS WITH`, `ENDS WITH`, `CONTAINS`, `IS NULL`, `IS NOT NULL`, `IS EMPTY`, `IS NOT EMPTY`, `=~` (regex, openCypher only), `AND`, `OR`, `NOT`, `XOR`.
 
-See `operators.md` for full operator details.
+See `../references/operators.md` for full operator details.
 
 ## WITH
 

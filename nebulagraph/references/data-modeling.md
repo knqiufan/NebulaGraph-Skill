@@ -1,6 +1,6 @@
 # NebulaGraph Data Modeling Guide
 
-> Companion to NebulaGraph `SKILL.md`. For nGQL syntax, see `ngql-syntax.md`. For examples, see `examples/workflows.md`.
+> Companion to NebulaGraph `../SKILL.md`. For nGQL syntax, see `../references/ngql-syntax.md`. For examples, see `../examples/workflows.md`.
 
 ## Concepts
 
