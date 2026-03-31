@@ -5,10 +5,14 @@ description: >-
   "write nGQL", "create a graph space", "design a graph schema",
   "find paths in a graph", "explore graph neighbors",
   "insert vertices or edges", "build a knowledge graph",
-  "model graph data", "traverse a graph", or mentions NebulaGraph,
-  nGQL, graph database schema design, or interacts with
-  nebulagraph-mcp-server MCP tools (list_spaces, get_space_schema,
-  execute_query, find_path, find_neighbors).
+  "model graph data", "traverse a graph",
+  "查询 NebulaGraph", "写 nGQL", "创建图空间", "设计图模型",
+  "查找路径", "探索邻居节点", "插入点边", "构建知识图谱",
+  "图数据建模", "图遍历",
+  or mentions NebulaGraph, nGQL, graph database, 图数据库,
+  graph schema design, or interacts with nebulagraph-mcp-server
+  MCP tools (list_spaces, get_space_schema, execute_query,
+  find_path, find_neighbors).
 version: 0.2.0
 ---
 
@@ -43,18 +47,20 @@ NebulaGraph is a distributed graph database using nGQL (SQL-like + openCypher) w
 - Prefix query with `PROFILE` for execution metrics
 
 ### `find_path(src, dst, space, depth=3, limit=10)` — Find all paths between two vertices.
-- Searches all edge types bidirectionally (no `edge_types`/`direction` params)
-- Default depth 3; increase to 5 for sparse graphs
+- **Parameters**: `src` (string, required), `dst` (string, required), `space` (string, required), `depth` (int, default 3), `limit` (int, default 10)
+- Searches all edge types bidirectionally
+- Increase depth to 5 for sparse graphs
 
 ### `find_neighbors(vertex, space, depth=1)` — Get connections around a vertex.
-- Undirected, all edge types (no `edge_types`/`direction`/`limit` params)
+- **Parameters**: `vertex` (string, required), `space` (string, required), `depth` (int, default 1)
+- Searches all edge types, undirected
 - depth=1 for immediate neighbors; increase for broader exploration
 
 ## Essential nGQL Patterns
 
 Core one-liners for quick reference. For complete syntax, see `references/ngql-syntax.md`.
 
-```ngql
+```cypher
 MATCH (v) WHERE id(v) == "p1" RETURN v;                              -- by VID
 MATCH (v:person) WHERE v.person.name == "Tim" RETURN v;              -- by property (needs index)
 MATCH (a)-[e:knows*1..3]->(b) WHERE id(a) == "p1" RETURN DISTINCT b; -- variable-length
@@ -77,6 +83,8 @@ DELETE VERTEX "p1" WITH EDGE;                                         -- delete
 8. No `USE` in `execute_query` — the MCP tool handles it automatically.
 
 ## Additional Resources
+
+> All file paths below are relative to this skill's directory (`nebulagraph/`).
 
 ### Reference Files
 
